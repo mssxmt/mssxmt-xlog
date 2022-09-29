@@ -7,6 +7,7 @@ const Intro = () => {
         MSSXMT-xLOG
       </h1>
       <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
+        MSSXMT's xLog
         {/* A statically generated blog example using
         {" "}
         <a
