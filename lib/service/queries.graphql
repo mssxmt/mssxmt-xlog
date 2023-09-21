@@ -1,0 +1,39 @@
+query Articles {
+  Article {
+    id
+    thumbnail
+    title
+    createdAt
+    content
+  }
+}
+
+query ArticleByPk($id: uuid = "") {
+  Article_by_pk(id: $id) {
+    content
+    createdAt
+    id
+    thumbnail
+    title
+  }
+}
+
+mutation insertArticle(
+  $content: String = ""
+  $thumbnail: String = ""
+  $title: String = ""
+  $userId: String = ""
+) {
+  insert_Article(
+    objects: {
+      content: $content
+      thumbnail: $thumbnail
+      title: $title
+      userId: $userId
+    }
+  ) {
+    returning {
+      id
+    }
+  }
+}
