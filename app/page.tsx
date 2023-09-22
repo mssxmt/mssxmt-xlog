@@ -24,6 +24,8 @@ export default async function Page() {
   const Article = await getArticles();
   return (
     <>
+      <a href='/api/auth/login'>Login</a>;
+      <a href='/api/auth/logout'>ログアウト</a>
       {Article.props.Article.map((i) => (
         <div key={i.id}>
           <div>{i.title}</div>
