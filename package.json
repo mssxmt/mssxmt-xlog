@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node",
+    "build": "next build",
     "start": "next start",
     "typecheck": "tsc",
     "codegen": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=./.env.local"
