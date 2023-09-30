@@ -1,6 +1,6 @@
 import { usePathname } from 'next/navigation';
 
-const NavBarItem = ({ children, href, className, tabIndex, testId }) => {
+const NavBarItem = ({ children, href, className, tabIndex, testId }: any) => {
   const pathname = usePathname();
   const activeClass = 'navbar-item-active';
   const activeClasses = className ? `${className} ${activeClass}` : activeClass;
