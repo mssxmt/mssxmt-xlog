@@ -14,7 +14,7 @@ export const Article = ({ article, data }: Props) => {
         className='bg-opacity-25'
         style={{
           maxWidth: '100%',
-          padding: '32px 16px 16px',
+          padding: '32px',
           display: 'flex',
           flexFlow: 'column',
           justifyContent: 'center',
