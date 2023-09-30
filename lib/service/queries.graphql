@@ -1,5 +1,5 @@
-query Articles {
-  Article {
+query Articles($createdAt: order_by = desc) {
+  Article(order_by: { createdAt: $createdAt }) {
     id
     thumbnail
     title
@@ -35,5 +35,11 @@ mutation insertArticle(
     returning {
       id
     }
+  }
+}
+
+mutation deleteArticleByPk($id: uuid = "") {
+  delete_Article_by_pk(id: $id) {
+    id
   }
 }
