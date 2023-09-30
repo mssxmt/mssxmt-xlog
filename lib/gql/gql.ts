@@ -686,7 +686,9 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
 };
 
-export type ArticlesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ArticlesQueryVariables = Exact<{
+  createdAt?: InputMaybe<Order_By>;
+}>;
 
 
 export type ArticlesQuery = { Article: Array<{ id: any, thumbnail?: string | null, title: string, createdAt?: any | null, content: string }> };
@@ -708,10 +710,17 @@ export type InsertArticleMutationVariables = Exact<{
 
 export type InsertArticleMutation = { insert_Article?: { returning: Array<{ id: any }> } | null };
 
+export type DeleteArticleByPkMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type DeleteArticleByPkMutation = { delete_Article_by_pk?: { id: any } | null };
+
 
 export const ArticlesDocument = gql`
-    query Articles {
-  Article {
+    query Articles($createdAt: order_by = desc) {
+  Article(order_by: {createdAt: $createdAt}) {
     id
     thumbnail
     title
@@ -733,6 +742,7 @@ export const ArticlesDocument = gql`
  * @example
  * const { data, loading, error } = useArticlesQuery({
  *   variables: {
+ *      createdAt: // value for 'createdAt'
  *   },
  * });
  */
@@ -826,3 +836,36 @@ export function useInsertArticleMutation(baseOptions?: Apollo.MutationHookOption
 export type InsertArticleMutationHookResult = ReturnType<typeof useInsertArticleMutation>;
 export type InsertArticleMutationResult = Apollo.MutationResult<InsertArticleMutation>;
 export type InsertArticleMutationOptions = Apollo.BaseMutationOptions<InsertArticleMutation, InsertArticleMutationVariables>;
+export const DeleteArticleByPkDocument = gql`
+    mutation deleteArticleByPk($id: uuid = "") {
+  delete_Article_by_pk(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteArticleByPkMutationFn = Apollo.MutationFunction<DeleteArticleByPkMutation, DeleteArticleByPkMutationVariables>;
+
+/**
+ * __useDeleteArticleByPkMutation__
+ *
+ * To run a mutation, you first call `useDeleteArticleByPkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteArticleByPkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteArticleByPkMutation, { data, loading, error }] = useDeleteArticleByPkMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteArticleByPkMutation(baseOptions?: Apollo.MutationHookOptions<DeleteArticleByPkMutation, DeleteArticleByPkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteArticleByPkMutation, DeleteArticleByPkMutationVariables>(DeleteArticleByPkDocument, options);
+      }
+export type DeleteArticleByPkMutationHookResult = ReturnType<typeof useDeleteArticleByPkMutation>;
+export type DeleteArticleByPkMutationResult = Apollo.MutationResult<DeleteArticleByPkMutation>;
+export type DeleteArticleByPkMutationOptions = Apollo.BaseMutationOptions<DeleteArticleByPkMutation, DeleteArticleByPkMutationVariables>;
