@@ -1,38 +1,11 @@
-'use client';
-import { initializeApolloClient } from '../lib/apollo/apolloClient';
-import { ArticlesDocument } from '../lib/gql/graphql';
-
-const getArticles = async () => {
-  const apiClient = initializeApolloClient(); //apolloClient初期化
-
-  const fetchData = async () => {
-    const { data: getJobpostData, error } = await apiClient.query({
-      query: ArticlesDocument,
-    });
-
-    return getJobpostData;
-  };
-  const data = await fetchData();
-
-  const selectedData = { ...data };
-  return {
-    props: selectedData,
-  };
-};
+import CoverImage from '../components/cover-image';
 
 export default async function Page() {
-  const Article = await getArticles();
   return (
-    <>
-      <a href='/api/auth/login'>Login</a>;
-      <a href='/api/auth/logout'>ログアウト</a>
-      {Article.props.Article.map((i) => (
-        <div key={i.id}>
-          <div>{i.title}</div>
-          <div>{i.content}</div>
-          <div>{i.createdAt}</div>
-        </div>
-      ))}
-    </>
+    <div className='hero-overlay bg-opacity-30'>
+      <div className='text-center text-neutral-content'>
+        <CoverImage title='MSSXMT-XLOG' src='/images/logo2.png' />
+      </div>
+    </div>
   );
 }
