@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // add daisyUI plugin
-  plugins: [require('daisyui')],
-
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
   // daisyUI config (optional - here are the default values)
   daisyui: {
     themes: [
@@ -49,36 +48,25 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  // daisyui使うなら↓この設定はしてはいけない
-  // theme: {
-  //   extend: {
-  //     // colors: {
-  //     //   'accent-1': '#FAFAFA',
-  //     //   'accent-2': '#EAEAEA',
-  //     //   'accent-7': '#333',
-  //     //   success: '#0070f3',
-  //     //   cyan: '#79FFE1',
-  //     // },
-  //     // spacing: {
-  //     //   28: '7rem',
-  //     // },
-  //     // letterSpacing: {
-  //     //   tighter: '-.04em',
-  //     // },
-  //     // lineHeight: {
-  //     //   tight: 1.2,
-  //     // },
-  //     // fontSize: {
-  //     //   '5xl': '2.5rem',
-  //     //   '6xl': '2.75rem',
-  //     //   '7xl': '4.5rem',
-  //     //   '8xl': '6.25rem',
-  //     // },
-  //     // boxShadow: {
-  //     //   sm: '0 5px 10px rgba(0, 0, 0, 0.12)',
-  //     //   md: '0 8px 30px rgba(0, 0, 0, 0.12)',
-  //     // },
-  //   },
-  // },
-  // plugins: [],
+
+  theme: {
+    extend: {
+      animation: {
+        'slide-in-blurred-top':
+          'slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000)   both',
+      },
+      keyframes: {
+        'slide-in-blurred-top': {
+          '0%': {
+            transform: 'translateY(-1000px) scaleY(2.5) scaleX(.2)',
+            'transform-origin': '50% 0%',
+          },
+          to: {
+            transform: 'translateY(0) scaleY(1) scaleX(1)',
+            'transform-origin': '50% 50%',
+          },
+        },
+      },
+    },
+  },
 };
