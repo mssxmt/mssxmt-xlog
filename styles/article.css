@@ -1,0 +1,89 @@
+code[class*='language-'],
+pre[class*='language-'] {
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-all !important;
+}
+/* ol {
+  list-style-type: decimal;
+  list-style-position: outside;
+  line-height: 21px;
+  margin-left: 30px;
+  margin-top: 8px;
+  padding-bottom: 8px;
+  li {
+    padding: 2px 2px 8px 6px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 200%;
+    letter-spacing: 0.08em;
+  }
+} */
+
+/* ul {
+  list-style-type: inherit;
+  list-style-position: outside;
+  line-height: 21px;
+  margin-top: 8px;
+  padding-bottom: 8px;
+  margin-left: 18px;
+  li {
+    padding: 2px 2px 8px 6px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 200%;
+    letter-spacing: 0.08em;
+  }
+} */
+
+p {
+  padding: 16px 0;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 200%;
+  letter-spacing: 0.08em;
+}
+
+b {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 200%;
+  letter-spacing: 0.08em;
+}
+
+i {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 200%;
+  letter-spacing: 0.08em;
+}
+
+img {
+  width: 100%;
+  margin: 16px 0;
+  border-radius: 16px;
+}
+
+h1,
+h2 {
+  padding-top: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 170%;
+  letter-spacing: 0.08em;
+}
+
+a {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 150%;
+  color: #056f80;
+  word-break: break-all;
+}
