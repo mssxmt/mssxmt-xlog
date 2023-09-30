@@ -3,6 +3,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useInsertArticleMutation } from '../lib/gql';
+import { useState } from 'react';
+import { OutputData } from '@editorjs/editorjs';
+import dynamic from 'next/dynamic';
+const Editor = dynamic(() => import('../components/editor'), { ssr: false });
+import { toast } from 'react-toastify';
 
 type FormData = {
   title: string;
@@ -12,13 +17,17 @@ type FormData = {
 
 export default function Edit() {
   const { user } = useUser();
+  const [editorData, setEditorData] = useState<OutputData>();
+  const success = () => toast('成功');
 
   const [insertArticleMutation, { data, loading, error }] =
     useInsertArticleMutation({
       onError(error, clientOptions) {
         console.log(error, clientOptions);
       },
-      onCompleted() {},
+      onCompleted: () => {
+        success();
+      },
     });
 
   const createArticles = ({ content, title, id }: FormData) => {
@@ -37,16 +46,31 @@ export default function Edit() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-  const onSubmit: SubmitHandler<FormData> = (data) =>
-    createArticles({ ...data, id: user?.sub! });
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    user?.sub &&
+      createArticles({
+        ...data,
+        id: user?.sub!,
+        content: JSON.stringify(editorData),
+      });
+  };
 
   return (
     <>
-      <form className='form-control' onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className='form-control'
+        onSubmit={handleSubmit(onSubmit)}
+        style={{
+          padding: '104px 16px',
+          width: '70%',
+          margin: '0 auto',
+        }}
+      >
         <label className='label'>
           <span className='label-text'>What is your タイトル?</span>
         </label>
         <input
+          style={{ background: 'none', backdropFilter: 'blur(100px)' }}
           type='text'
           placeholder='タイトル here'
           className='input input-bordered w-full'
@@ -55,12 +79,8 @@ export default function Edit() {
         <label className='label'>
           <span className='label-text'>Your 記事</span>
         </label>
-        <textarea
-          className='textarea textarea-bordered h-24'
-          placeholder='記事'
-          {...register('content')}
-        ></textarea>
-        <input className='btn' type='submit' />
+        <Editor setEditorData={setEditorData} />
+        <input className='btn mt-10' type='submit' />
       </form>
     </>
   );
