@@ -49,8 +49,8 @@ export default function Modal({
       <button
         ref={Xbutton}
         onClick={onClick}
-        className='btn btn-outline btn-secondary btn-sm'
-        style={{ position: 'fixed', zIndex: 99, top: '104px', right: '10%' }}
+        className='btn btn-outline btn-secondary btn-sm '
+        style={{ position: 'fixed', zIndex: 99, top: '104px', right: '8%' }}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -68,13 +68,13 @@ export default function Modal({
         </svg>
         close
       </button>
-      <button
+      {/* <button
         className='btn btn-outline btn-secondary btn-sm'
         style={{
           position: 'fixed',
           zIndex: 99,
           top: '104px',
-          right: '5%',
+          right: '8%',
         }}
       >
         <Link
@@ -99,7 +99,7 @@ export default function Modal({
             <path d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5' />
           </svg>
         </Link>
-      </button>
+      </button> */}
       <div
         style={{ overflowY: 'auto' }}
         ref={overlay}
