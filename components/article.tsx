@@ -7,17 +7,18 @@ type Props = {
   data: OutputData;
 };
 export const Article = ({ article, data }: Props) => {
+  const date = new Date(article.Article_by_pk?.createdAt).toLocaleDateString();
   return (
     <>
       <section
         className='bg-opacity-25'
         style={{
-          width: '100%',
+          maxWidth: '100%',
           padding: '32px 16px 16px',
           display: 'flex',
           flexFlow: 'column',
           justifyContent: 'center',
-          alignItems: 'center',
+          // alignItems: 'center',
           WebkitBackdropFilter: 'blur(200px)',
           backdropFilter: 'blur(200px)',
           borderRadius: '10px',
@@ -28,6 +29,7 @@ export const Article = ({ article, data }: Props) => {
         }}
       >
         <h2>{article.Article_by_pk?.title}</h2>
+        <p>{date}</p>
         <EditorHtml editorData={data} />
       </section>
     </>
