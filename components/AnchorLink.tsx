@@ -2,7 +2,7 @@
 
 import NavBarItem from './NavBarItem';
 
-const AnchorLink = ({ children, href, className, tabIndex, testId }) => {
+const AnchorLink = ({ children, href, className, tabIndex, testId }: any) => {
   return (
     <a href={href}>
       <NavBarItem
