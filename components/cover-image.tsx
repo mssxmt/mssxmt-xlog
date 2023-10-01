@@ -1,6 +1,3 @@
-import cn from 'classnames';
-// import Link from 'next/link';
-
 type Props = {
   title: string;
   src: string;
@@ -11,8 +8,8 @@ const CoverImage = ({ title, src, slug }: Props) => {
   const image = <img src={src} alt={`Cover Image for ${title}`} />;
   return (
     <section
-      className='flex justify-center items-center'
-      style={{ minHeight: 'calc(100vh - 0px)' }}
+      className='flex justify-center items-center animate-text-focus-in'
+      style={{ minHeight: 'calc(100vh - 32px)' }}
     >
       {image}
     </section>
