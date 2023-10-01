@@ -15,6 +15,7 @@ const getArticle = async (id: string) => {
       ArticleByPkQuery,
       ArticleByPkQueryVariables
     >({
+      fetchPolicy: 'cache-first',
       query: ArticleByPkDocument,
       variables: { id: id },
     });
