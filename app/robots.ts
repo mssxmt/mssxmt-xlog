@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://mssxmt-xlog.netlify.app/sitemap.xml',
+    sitemap: 'https://mssxmt-xlog.vercel.app/sitemap.xml',
   };
 }

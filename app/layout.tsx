@@ -10,10 +10,10 @@ import Footer from '../components/footer';
 
 const siteName = 'MSSXMTXLOG';
 const description = 'MaSaShi XiMoTo x Log';
-const url = 'https://mssxmt-xlog.netlify.app/';
+const url = 'https://mssxmt-xlog.vercel.app/';
 
 export const metadata: Metadata = {
-  // Netlifyなので指定が必要 https://docs.netlify.com/configure-builds/environment-variables/
+  // 指定が必要 https://docs.netlify.com/configure-builds/environment-variables/
   metadataBase: new URL(process.env.MY_URL ?? 'http://localhost:3000'),
   description,
   title: {
