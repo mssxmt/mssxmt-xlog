@@ -6,6 +6,7 @@ import { NextThemeProvider } from '../providers/NextThemeProvider';
 import { ApolloWrapper } from '../lib/apollo/apollo-wrapper';
 import ReactToalsyProvider from '../providers/ReactToalsyProvider';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../components/footer';
 
 const siteName = 'MSSXMTXLOG';
 const description = 'MaSaShi XiMoTo x Log';
@@ -55,10 +56,10 @@ export default function RootLayout(props: {
             <NextThemeProvider>
               <ReactToalsyProvider>
                 <Navbar />
-                <div
-                  className='min-h-screen'
+                <main
+                  // className='min-h-screen'
                   style={{
-                    // background: 'url(/images/bg2.png) center / cover',
+                    minHeight: ' calc(100vh - 32px)',
                     background:
                       'conic-gradient(from 20deg, rgba(223, 168, 168, 0.5) 18deg, rgba(193, 199, 197, 0.5) 68deg, rgba(108, 199, 221, 0.5) 151deg, rgba(177, 151, 223, 0.5) 263deg, rgba(122, 197, 216, 0.5) 295deg, rgba(223, 168, 168, 0.5) 360deg), url(/images/bg2.png) ',
                     width: '100%',
@@ -67,7 +68,8 @@ export default function RootLayout(props: {
                 >
                   {props.children}
                   {props.modal}
-                </div>
+                </main>
+                <Footer />
               </ReactToalsyProvider>
             </NextThemeProvider>
           </ApolloWrapper>
