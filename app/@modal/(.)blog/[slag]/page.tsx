@@ -8,7 +8,6 @@ import {
 } from '../../../../lib/gql';
 
 const getArticle = async (id: string) => {
-  console.log(id);
   const apiClient = initializeApolloClient(); //apolloClient初期化
 
   const fetchData = async () => {
