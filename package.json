@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "node prebuild.js",
     "start": "next start",
     "typecheck": "tsc",
     "codegen": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=./.env.local"
@@ -31,7 +32,7 @@
     "graphql-request": "^6.1.0",
     "graphql-ws": "^5.14.0",
     "gray-matter": "^4.0.3",
-    "next": "13.5.2",
+    "next": "13.4.19",
     "next-themes": "^0.2.1",
     "node-html-parser": "^6.1.10",
     "prismjs": "^1.29.0",
