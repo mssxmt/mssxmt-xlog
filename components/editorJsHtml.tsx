@@ -76,11 +76,11 @@ export const EditorHtml = ({ editorData }: Props) => {
   return (
     <>
       {reMapParsedHTML.map((html, index) => (
-        <div
+        <article
           className='language-javascript'
           dangerouslySetInnerHTML={{ __html: html }}
           key={index}
-        ></div>
+        ></article>
       ))}
     </>
   );
