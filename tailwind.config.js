@@ -54,6 +54,8 @@ module.exports = {
       animation: {
         'slide-in-blurred-top':
           'slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000)   both',
+        'text-focus-in':
+          'text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530)   both',
       },
       keyframes: {
         'slide-in-blurred-top': {
@@ -64,6 +66,16 @@ module.exports = {
           to: {
             transform: 'translateY(0) scaleY(1) scaleX(1)',
             'transform-origin': '50% 50%',
+          },
+        },
+        'text-focus-in': {
+          '0%': {
+            filter: 'blur(12px)',
+            opacity: '0',
+          },
+          to: {
+            filter: 'blur(0)',
+            opacity: '1',
           },
         },
       },
