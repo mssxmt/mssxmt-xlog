@@ -34,7 +34,13 @@ export default async function Page({ params }: { params: { slag: string } }) {
     article.props.Article_by_pk &&
     JSON.parse(article.props.Article_by_pk?.content);
   return (
-    <div style={{ paddingTop: 'calc(64px + 20px)', margin: '0 10%' }}>
+    <div
+      style={{
+        paddingTop: 'calc(64px + 20px)',
+        paddingBottom: '40px',
+        margin: '0 10%',
+      }}
+    >
       <Article article={article.props} data={data} />
     </div>
   );
