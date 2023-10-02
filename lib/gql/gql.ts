@@ -710,6 +710,15 @@ export type InsertArticleMutationVariables = Exact<{
 
 export type InsertArticleMutation = { insert_Article?: { returning: Array<{ id: any }> } | null };
 
+export type UpdateArticleByPkMutationVariables = Exact<{
+  content?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+
+export type UpdateArticleByPkMutation = { update_Article_by_pk?: { id: any } | null };
+
 export type DeleteArticleByPkMutationVariables = Exact<{
   id?: InputMaybe<Scalars['uuid']['input']>;
 }>;
@@ -836,6 +845,44 @@ export function useInsertArticleMutation(baseOptions?: Apollo.MutationHookOption
 export type InsertArticleMutationHookResult = ReturnType<typeof useInsertArticleMutation>;
 export type InsertArticleMutationResult = Apollo.MutationResult<InsertArticleMutation>;
 export type InsertArticleMutationOptions = Apollo.BaseMutationOptions<InsertArticleMutation, InsertArticleMutationVariables>;
+export const UpdateArticleByPkDocument = gql`
+    mutation updateArticleByPk($content: String = "", $title: String = "", $id: uuid = "") {
+  update_Article_by_pk(
+    pk_columns: {id: $id}
+    _set: {content: $content, title: $title}
+  ) {
+    id
+  }
+}
+    `;
+export type UpdateArticleByPkMutationFn = Apollo.MutationFunction<UpdateArticleByPkMutation, UpdateArticleByPkMutationVariables>;
+
+/**
+ * __useUpdateArticleByPkMutation__
+ *
+ * To run a mutation, you first call `useUpdateArticleByPkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateArticleByPkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateArticleByPkMutation, { data, loading, error }] = useUpdateArticleByPkMutation({
+ *   variables: {
+ *      content: // value for 'content'
+ *      title: // value for 'title'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateArticleByPkMutation(baseOptions?: Apollo.MutationHookOptions<UpdateArticleByPkMutation, UpdateArticleByPkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateArticleByPkMutation, UpdateArticleByPkMutationVariables>(UpdateArticleByPkDocument, options);
+      }
+export type UpdateArticleByPkMutationHookResult = ReturnType<typeof useUpdateArticleByPkMutation>;
+export type UpdateArticleByPkMutationResult = Apollo.MutationResult<UpdateArticleByPkMutation>;
+export type UpdateArticleByPkMutationOptions = Apollo.BaseMutationOptions<UpdateArticleByPkMutation, UpdateArticleByPkMutationVariables>;
 export const DeleteArticleByPkDocument = gql`
     mutation deleteArticleByPk($id: uuid = "") {
   delete_Article_by_pk(id: $id) {

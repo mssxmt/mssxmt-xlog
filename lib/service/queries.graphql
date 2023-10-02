@@ -38,6 +38,19 @@ mutation insertArticle(
   }
 }
 
+mutation updateArticleByPk(
+  $content: String = ""
+  $title: String = ""
+  $id: uuid = ""
+) {
+  update_Article_by_pk(
+    pk_columns: { id: $id }
+    _set: { content: $content, title: $title }
+  ) {
+    id
+  }
+}
+
 mutation deleteArticleByPk($id: uuid = "") {
   delete_Article_by_pk(id: $id) {
     id
