@@ -1,15 +1,26 @@
+import { bt } from '../styles/fonts';
+
 type Props = {
-  name: string
-  picture: string
-}
+  name: string;
+  picture: string;
+};
 
 const Avatar = ({ name, picture }: Props) => {
   return (
-    <div className="flex items-center">
-      <img src={picture} className="w-12 h-12 rounded-full mr-4" alt={name} />
-      <div className="text-xl font-bold">{name}</div>
-    </div>
-  )
-}
+    <section className='grid grid-cols-1 gap-4 place-content-center	'>
+      <img
+        src={picture}
+        className='w-[246px] h-[256px] rounded-full  bg-neutral-content'
+        alt={name}
+      />
+      <div>
+        <p className='text-center'>Auther</p>
+        <p className={`text-xl text-center tracking-[.25rem] ${bt.className}`}>
+          {name}
+        </p>
+      </div>
+    </section>
+  );
+};
 
-export default Avatar
+export default Avatar;
