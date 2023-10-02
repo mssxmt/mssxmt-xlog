@@ -15,7 +15,12 @@ const getArticles = async () => {
       ArticlesQueryVariables
     >({
       query: ArticlesDocument,
-      fetchPolicy: 'cache-first', //no-cacheにするとssr
+      context: {
+        fetchOptions: {
+          next: { revalidate: 5 },
+        },
+      },
+      fetchPolicy: 'no-cache', //no-cacheにするとssr
       variables: { createdAt: 'desc' },
     });
 
