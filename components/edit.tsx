@@ -2,8 +2,12 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { useInsertArticleMutation } from '../lib/gql';
-import { useState } from 'react';
+import {
+  useArticleByPkQuery,
+  useInsertArticleMutation,
+  useUpdateArticleByPkMutation,
+} from '../lib/gql';
+import { useEffect, useState } from 'react';
 import { OutputData } from '@editorjs/editorjs';
 import dynamic from 'next/dynamic';
 const Editor = dynamic(() => import('../components/editor'), { ssr: false });
@@ -15,10 +19,26 @@ type FormData = {
   id: string;
 };
 
-export default function Edit() {
+type Props = {
+  articleId?: string;
+};
+export default function Edit({ articleId }: Props) {
   const { user } = useUser();
-  const [editorData, setEditorData] = useState<OutputData>();
+  const [editorData, setEditorData] = useState<OutputData | undefined>();
   const success = () => toast('成功');
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const { data: article } = useArticleByPkQuery({
+    onError(error) {
+      console.log(error);
+    },
+    variables: { id: articleId },
+  });
 
   const [insertArticleMutation, { data, loading, error }] =
     useInsertArticleMutation({
@@ -41,16 +61,42 @@ export default function Edit() {
       },
     });
   };
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+
+  const [updateArticleByPk, {}] = useUpdateArticleByPkMutation({
+    onError(error, clientOptions) {
+      console.log(error, clientOptions);
+    },
+    onCompleted: () => {
+      success();
+    },
+  });
+
+  const updateArticle = ({ content, title, id }: FormData) => {
+    updateArticleByPk({
+      variables: { id: id, content: content, title: title },
+    });
+  };
+
+  useEffect(() => {
+    if (articleId && article) {
+      setValue('title', article.Article_by_pk?.title ?? '');
+      const data: OutputData = JSON.parse(article.Article_by_pk?.content!);
+      setEditorData(data);
+    }
+  }, [articleId, article]);
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     user?.sub &&
+      !articleId &&
       createArticles({
         ...data,
         id: user?.sub!,
+        content: JSON.stringify(editorData),
+      });
+    articleId &&
+      updateArticle({
+        id: articleId,
+        title: data.title,
         content: JSON.stringify(editorData),
       });
   };
@@ -79,7 +125,10 @@ export default function Edit() {
         <label className='label'>
           <span className='label-text'>Your 記事</span>
         </label>
-        <Editor setEditorData={setEditorData} />
+        {articleId && editorData && (
+          <Editor setEditorData={setEditorData} editorData={editorData} />
+        )}
+        {!articleId && !editorData && <Editor setEditorData={setEditorData} />}
         <input className='btn mt-10' type='submit' />
       </form>
     </>
