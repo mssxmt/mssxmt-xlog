@@ -17,7 +17,7 @@ const getArticles = async () => {
       query: ArticlesDocument,
       context: {
         fetchOptions: {
-          next: { revalidate: 5 },
+          next: { revalidate: 3600 },
         },
       },
       fetchPolicy: 'no-cache', //no-cacheにするとssr
