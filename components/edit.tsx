@@ -25,6 +25,7 @@ type Props = {
 export default function Edit({ articleId }: Props) {
   const { user } = useUser();
   const [editorData, setEditorData] = useState<OutputData | undefined>();
+  const [EditorJSX, setEditorJSX] = useState<JSX.Element>();
   const success = () => toast('成功');
   const {
     register,
@@ -78,10 +79,18 @@ export default function Edit({ articleId }: Props) {
   };
 
   useEffect(() => {
-    if (articleId && article) {
-      setValue('title', article.Article_by_pk?.title ?? '');
-      const data: OutputData = JSON.parse(article.Article_by_pk?.content!);
-      setEditorData(data);
+    if (articleId) {
+      if (article) {
+        setValue('title', article.Article_by_pk?.title ?? '');
+        const data: OutputData = JSON.parse(article.Article_by_pk?.content!);
+        setEditorJSX(
+          <Editor setEditorData={setEditorData} editorData={data} />
+        );
+      } else {
+        console.error('エラーです');
+      }
+    } else {
+      setEditorJSX(<Editor setEditorData={setEditorData} />);
     }
   }, [articleId, article]);
 
@@ -125,10 +134,11 @@ export default function Edit({ articleId }: Props) {
         <label className='label'>
           <span className='label-text'>Your 記事</span>
         </label>
-        {articleId && editorData && (
+        {EditorJSX}
+        {/* {articleId && editorData && (
           <Editor setEditorData={setEditorData} editorData={editorData} />
         )}
-        {!articleId && !editorData && <Editor setEditorData={setEditorData} />}
+        {!articleId && !editorData && <Editor setEditorData={setEditorData} />} */}
         <input className='btn mt-10' type='submit' />
       </form>
     </>
