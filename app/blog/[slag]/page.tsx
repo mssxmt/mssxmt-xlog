@@ -1,5 +1,4 @@
 import { OutputData } from '@editorjs/editorjs';
-import { EditorHtml } from '../../../components/editorJsHtml';
 import { initializeApolloClient } from '../../../lib/apollo/apolloClient';
 import {
   ArticleByPkDocument,
