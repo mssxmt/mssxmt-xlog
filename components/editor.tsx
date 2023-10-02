@@ -1,36 +1,17 @@
 'use client';
-// import styled from 'styled-components';
-// import { EditorStyleWrapper } from './EditorStyleWrapper';
-// import { useStringDetection } from '../../../hooks/useStringDetection';
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-// import { EditorCautionMessage } from './EditorCautionMessage';
 import EditorJS, { LogLevels, OutputData } from '@editorjs/editorjs';
 import Header from '@editorjs/header'; //h1〜h4
-// import ImageTool from '@editorjs/image'; //画像
 import NestedList from '@editorjs/nested-list';
 import Delimiter from '@editorjs/delimiter'; //区切り線
 import CodeTool from '@editorjs/code';
-// import theme from '../../../theme';
+import Strikethrough from '@sotaproject/strikethrough';
 
-// const EditorDiv = styled.div`
-//   padding: 10px 0px;
-//   background: #ffffff;
-//   border: 1px solid ${theme.line.border};
-//   border-radius: 8px;
-//   width: 100%;
-//   [contenteditable]:focus {
-//     outline: none;
-//   }
-//   font-family: 'Hiragino Sans';
-//   color: #000000d4;
-// `;
 type Props = {
   setEditorData: Dispatch<SetStateAction<OutputData | undefined>>;
+  editorData?: OutputData | undefined;
 };
-const Editor = ({
-  //   editorData,
-  setEditorData,
-}: Props) => {
+const Editor = ({ editorData, setEditorData }: Props) => {
   //IDを設定、htmlに設定されたidの要素にレンダーされる
   const EDITTOR_HOLDER_ID = 'editorjs';
   const ejInstance = useRef<EditorJS | null>(null);
@@ -51,8 +32,7 @@ const Editor = ({
   const initEditor = () => {
     const editor = new EditorJS({
       holder: EDITTOR_HOLDER_ID,
-      //   logLevel: LogLevels.ERROR,
-      // data: "editorData",
+      data: editorData,
 
       onReady: () => {
         ejInstance.current = editor;
@@ -65,8 +45,10 @@ const Editor = ({
         }
       },
       autofocus: false,
-      inlineToolbar: ['bold', 'italic', 'link'],
+      inlineToolbar: ['bold', 'italic', 'link', 'strikethrough'],
       tools: {
+        strikethrough: Strikethrough,
+
         code: { class: CodeTool },
         header: {
           class: Header,
@@ -183,7 +165,6 @@ const Editor = ({
   };
 
   return (
-    // <EditorStyleWrapper $hideToolBar={hideToolBar}>
     <div
       style={{
         backdropFilter: 'blur(100px)',
@@ -192,8 +173,6 @@ const Editor = ({
       }}
       id={EDITTOR_HOLDER_ID}
     />
-    //   {wordIs && <EditorCautionMessage words={thatWordsIsNotGood} />}
-    // </EditorStyleWrapper>
   );
 };
 
