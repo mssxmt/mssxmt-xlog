@@ -42,6 +42,9 @@ const Drawer = () => {
             <li className={`${bt.className}`}>
               <Link href={'/blog'}>logs</Link>
             </li>
+            <li className={`${bt.className}`}>
+              <Link href={'/about'}>about</Link>
+            </li>
           </ul>
         </div>
       </div>
