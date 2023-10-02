@@ -22,7 +22,6 @@
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@graphql-typed-document-node/core": "^3.2.0",
-    "@sotaproject/strikethrough": "^1.0.1",
     "classnames": "^2.3.1",
     "date-fns": "^2.28.0",
     "dotenv": "^16.3.1",

@@ -5,7 +5,6 @@ import Header from '@editorjs/header'; //h1〜h4
 import NestedList from '@editorjs/nested-list';
 import Delimiter from '@editorjs/delimiter'; //区切り線
 import CodeTool from '@editorjs/code';
-import Strikethrough from '@sotaproject/strikethrough';
 
 type Props = {
   setEditorData: Dispatch<SetStateAction<OutputData | undefined>>;
@@ -45,10 +44,8 @@ const Editor = ({ editorData, setEditorData }: Props) => {
         }
       },
       autofocus: false,
-      inlineToolbar: ['bold', 'italic', 'link', 'strikethrough'],
+      inlineToolbar: ['bold', 'italic', 'link'],
       tools: {
-        strikethrough: Strikethrough,
-
         code: { class: CodeTool },
         header: {
           class: Header,
