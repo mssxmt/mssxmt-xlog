@@ -1,6 +1,12 @@
+'use client';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 
 const EditArticleButton = ({ id }: { id: string }) => {
+  const { user } = useUser();
+  if (!user) {
+    return null;
+  }
   return (
     <Link className='btn btn-outline btn-primary btn-sm' href={`/create/${id}`}>
       <svg
