@@ -1,22 +1,23 @@
 'use client';
-import { useCallback, useRef, useEffect, MouseEventHandler } from 'react';
+import {
+  useCallback,
+  useRef,
+  useEffect,
+  MouseEventHandler,
+  useState,
+} from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
-export default function Modal({
-  children,
-  link,
-}: {
-  children: React.ReactNode;
-  link: string;
-}) {
+export default function Modal({ children }: { children: React.ReactNode }) {
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const overlay = useRef(null);
   const wrapper = useRef(null);
   const Xbutton = useRef(null);
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
-    router.back();
+    setIsModalOpen(false);
+    setTimeout(() => router.back(), 1000);
   }, [router]);
 
   const onClick: MouseEventHandler = useCallback(
@@ -45,75 +46,58 @@ export default function Modal({
   }, [onKeyDown]);
 
   return (
-    <>
-      <button
-        ref={Xbutton}
-        onClick={onClick}
-        className='btn btn-outline btn-secondary btn-sm '
-        style={{ position: 'fixed', zIndex: 99, top: '104px', right: '8%' }}
-      >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='14'
-          height='14'
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='3'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          className='ai ai-Cross'
-        >
-          <path d='M20 20L4 4m16 0L4 20' />
-        </svg>
-        close
-      </button>
-      {/* <button
-        className='btn btn-outline btn-secondary btn-sm'
-        style={{
-          position: 'fixed',
-          zIndex: 99,
-          top: '104px',
-          right: '8%',
-        }}
-      >
-        <Link
-          href={`/blog/${link}`}
-          target='_blank'
-          className={'link link-hover'}
+    <div>
+      {isModalOpen && (
+        <button
+          ref={Xbutton}
+          onClick={onClick}
+          className='btn btn-outline btn-secondary btn-sm '
+          style={{ position: 'fixed', zIndex: 99, top: '104px', right: '8%' }}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            width='24'
-            height='24'
+            width='14'
+            height='14'
             viewBox='0 0 24 24'
             fill='none'
             stroke='currentColor'
-            strokeWidth='2'
+            strokeWidth='3'
             strokeLinecap='round'
             strokeLinejoin='round'
-            className='ai ai-LinkOut'
+            className='ai ai-Cross'
           >
-            <path d='M13.5 10.5L21 3' />
-            <path d='M16 3h5v5' />
-            <path d='M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5' />
+            <path d='M20 20L4 4m16 0L4 20' />
           </svg>
-        </Link>
-      </button> */}
+          close
+        </button>
+      )}
+
       <div
         style={{ overflowY: 'auto' }}
         ref={overlay}
-        className='animate-slide-in-blurred-top max-h-screen absolute fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/20'
+        className={`${
+          !isModalOpen
+            ? 'animate-slide-out-blurred-top'
+            : 'animate-slide-in-blurred-top'
+        } max-h-screen absolute fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/20`}
         onClick={onClick}
       >
         <div
           style={{ top: '64px' }}
           ref={wrapper}
-          className='max-h-screen absolute  left-1/2 -translate-x-1/2  w-full sm:w-100 md:w-100 lg:w-100 p-6'
+          className='max-h-screen absolute left-1/2 -translate-x-1/2 w-full sm:w-100 md:w-100 lg:w-100 p-6'
         >
-          {children}
+          <section
+            className='bg-base-100 max-w-full p-[32px] flex-col justify-center whitespace-pre-wrap break-all relative rounded-[10px] mb-[100px]'
+            style={{
+              WebkitBackdropFilter: 'blur(200px)',
+              overflowWrap: 'anywhere',
+            }}
+          >
+            {children}
+          </section>
         </div>
       </div>
-    </>
+    </div>
   );
 }
