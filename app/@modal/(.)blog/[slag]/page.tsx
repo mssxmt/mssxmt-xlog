@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { slag: string } }) {
     article.props.Article_by_pk &&
     JSON.parse(article.props.Article_by_pk?.content);
   return (
-    <Modal link={article.props.Article_by_pk?.id}>
+    <Modal>
       <Article article={article.props} data={data} />
     </Modal>
   );
