@@ -37,10 +37,13 @@ const Drawer = () => {
           >
             {/* Sidebar content here */}
             <li className={`${bt.className}`}>
-              <Link href={'/'}>top</Link>
+              <Link href={'/'}>home</Link>
             </li>
             <li className={`${bt.className}`}>
               <Link href={'/blog'}>logs</Link>
+            </li>
+            <li className={`${bt.className}`}>
+              <Link href={'/discography'}>discography</Link>
             </li>
             <li className={`${bt.className}`}>
               <Link href={'/about'}>about</Link>
