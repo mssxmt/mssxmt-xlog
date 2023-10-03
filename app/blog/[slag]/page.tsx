@@ -38,10 +38,18 @@ export default async function Page({ params }: { params: { slag: string } }) {
       style={{
         paddingTop: 'calc(64px + 20px)',
         paddingBottom: '40px',
-        margin: '0 10%',
+        margin: '0 5%',
       }}
     >
-      <Article article={article.props} data={data} />
+      <section
+        className='bg-opacity-50 bg-base-100 max-w-full p-[32px] flex-col justify-center backdrop-blur-[200px] whitespace-pre-wrap break-all relative rounded-[10px] mb-[100px]'
+        style={{
+          WebkitBackdropFilter: 'blur(200px)',
+          overflowWrap: 'anywhere',
+        }}
+      >
+        <Article article={article.props} data={data} />
+      </section>
     </div>
   );
 }
