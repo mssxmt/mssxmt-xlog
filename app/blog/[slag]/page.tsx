@@ -43,8 +43,10 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
   return {
     title: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
+    description: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
     openGraph: {
       title: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
+      description: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
       images: [...previousImages],
     },
   };
