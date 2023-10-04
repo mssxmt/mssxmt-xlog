@@ -44,7 +44,6 @@ export async function generateMetadata(
     title: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
     description: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
     openGraph: {
-      title: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
       description: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
       images: [...previousImages],
     },
