@@ -42,8 +42,9 @@ export async function generateMetadata(
   //親のogp
   const previousImages = (await parent).openGraph?.images || [];
   return {
-    title: article.props.Article_by_pk?.title,
+    title: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
     openGraph: {
+      title: `MSSXMTXLOG - ${article.props.Article_by_pk?.title}`,
       images: [...previousImages],
     },
   };
