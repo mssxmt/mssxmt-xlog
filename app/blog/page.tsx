@@ -46,7 +46,10 @@ export default async function Page() {
         return (
           <article
             key={i.id}
-            style={{ position: 'relative', paddingTop: '20px' }}
+            style={{
+              position: 'relative',
+              paddingTop: index === 0 ? '20px' : '0',
+            }}
           >
             <div className='mockup-code bg-opacity-0 pt-0 pb-0 before:hidden'>
               <pre
