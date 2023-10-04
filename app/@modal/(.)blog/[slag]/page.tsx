@@ -1,3 +1,4 @@
+import { Metadata, ResolvingMetadata } from 'next';
 import { Article } from '../../../../components/article';
 import Modal from '../../../../components/modal';
 import { initializeApolloClient } from '../../../../lib/apollo/apolloClient';
@@ -6,6 +7,8 @@ import {
   ArticleByPkQuery,
   ArticleByPkQueryVariables,
 } from '../../../../lib/gql';
+
+type Props = { params: { slag: string } };
 
 const getArticle = async (id: string) => {
   const apiClient = initializeApolloClient(); //apolloClient初期化
@@ -29,7 +32,23 @@ const getArticle = async (id: string) => {
     props: selectedData,
   };
 };
-export default async function Page({ params }: { params: { slag: string } }) {
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const article = await getArticle(params.slag);
+  //親のogp
+  const previousImages = (await parent).openGraph?.images || [];
+  return {
+    title: article.props.Article_by_pk?.title,
+    openGraph: {
+      images: [...previousImages],
+    },
+  };
+}
+
+export default async function Page({ params }: Props) {
   const article = await getArticle(params.slag);
 
   const data =
