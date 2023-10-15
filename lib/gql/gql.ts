@@ -24,6 +24,7 @@ export type Article = {
   content: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['timestamptz']['output']>;
   id: Scalars['uuid']['output'];
+  postId?: Maybe<Scalars['String']['output']>;
   thumbnail?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   /** An object relationship */
@@ -59,6 +60,7 @@ export type Article_Bool_Exp = {
   content?: InputMaybe<String_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  postId?: InputMaybe<String_Comparison_Exp>;
   thumbnail?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
@@ -75,6 +77,7 @@ export type Article_Insert_Input = {
   content?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  postId?: InputMaybe<Scalars['String']['input']>;
   thumbnail?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
@@ -86,6 +89,7 @@ export type Article_Max_Fields = {
   content?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  postId?: Maybe<Scalars['String']['output']>;
   thumbnail?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   userId?: Maybe<Scalars['String']['output']>;
@@ -96,6 +100,7 @@ export type Article_Min_Fields = {
   content?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  postId?: Maybe<Scalars['String']['output']>;
   thumbnail?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   userId?: Maybe<Scalars['String']['output']>;
@@ -121,6 +126,7 @@ export type Article_Order_By = {
   content?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  postId?: InputMaybe<Order_By>;
   thumbnail?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
@@ -141,6 +147,8 @@ export type Article_Select_Column =
   /** column name */
   | 'id'
   /** column name */
+  | 'postId'
+  /** column name */
   | 'thumbnail'
   /** column name */
   | 'title'
@@ -152,6 +160,7 @@ export type Article_Set_Input = {
   content?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  postId?: InputMaybe<Scalars['String']['input']>;
   thumbnail?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['String']['input']>;
@@ -170,6 +179,7 @@ export type Article_Stream_Cursor_Value_Input = {
   content?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  postId?: InputMaybe<Scalars['String']['input']>;
   thumbnail?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['String']['input']>;
@@ -183,6 +193,8 @@ export type Article_Update_Column =
   | 'createdAt'
   /** column name */
   | 'id'
+  /** column name */
+  | 'postId'
   /** column name */
   | 'thumbnail'
   /** column name */
@@ -698,13 +710,14 @@ export type ArticleByPkQueryVariables = Exact<{
 }>;
 
 
-export type ArticleByPkQuery = { Article_by_pk?: { content: string, createdAt?: any | null, id: any, thumbnail?: string | null, title: string } | null };
+export type ArticleByPkQuery = { Article_by_pk?: { content: string, createdAt?: any | null, id: any, thumbnail?: string | null, title: string, postId?: string | null } | null };
 
 export type InsertArticleMutationVariables = Exact<{
   content?: InputMaybe<Scalars['String']['input']>;
   thumbnail?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['String']['input']>;
+  postId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -714,6 +727,7 @@ export type UpdateArticleByPkMutationVariables = Exact<{
   content?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  postId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -774,6 +788,7 @@ export const ArticleByPkDocument = gql`
     id
     thumbnail
     title
+    postId
   }
 }
     `;
@@ -806,9 +821,9 @@ export type ArticleByPkQueryHookResult = ReturnType<typeof useArticleByPkQuery>;
 export type ArticleByPkLazyQueryHookResult = ReturnType<typeof useArticleByPkLazyQuery>;
 export type ArticleByPkQueryResult = Apollo.QueryResult<ArticleByPkQuery, ArticleByPkQueryVariables>;
 export const InsertArticleDocument = gql`
-    mutation insertArticle($content: String = "", $thumbnail: String = "", $title: String = "", $userId: String = "") {
+    mutation insertArticle($content: String = "", $thumbnail: String = "", $title: String = "", $userId: String = "", $postId: String = "") {
   insert_Article(
-    objects: {content: $content, thumbnail: $thumbnail, title: $title, userId: $userId}
+    objects: {content: $content, thumbnail: $thumbnail, title: $title, userId: $userId, postId: $postId}
   ) {
     returning {
       id
@@ -835,6 +850,7 @@ export type InsertArticleMutationFn = Apollo.MutationFunction<InsertArticleMutat
  *      thumbnail: // value for 'thumbnail'
  *      title: // value for 'title'
  *      userId: // value for 'userId'
+ *      postId: // value for 'postId'
  *   },
  * });
  */
@@ -846,10 +862,10 @@ export type InsertArticleMutationHookResult = ReturnType<typeof useInsertArticle
 export type InsertArticleMutationResult = Apollo.MutationResult<InsertArticleMutation>;
 export type InsertArticleMutationOptions = Apollo.BaseMutationOptions<InsertArticleMutation, InsertArticleMutationVariables>;
 export const UpdateArticleByPkDocument = gql`
-    mutation updateArticleByPk($content: String = "", $title: String = "", $id: uuid = "") {
+    mutation updateArticleByPk($content: String = "", $title: String = "", $id: uuid = "", $postId: String = "") {
   update_Article_by_pk(
     pk_columns: {id: $id}
-    _set: {content: $content, title: $title}
+    _set: {content: $content, title: $title, postId: $postId}
   ) {
     id
   }
@@ -873,6 +889,7 @@ export type UpdateArticleByPkMutationFn = Apollo.MutationFunction<UpdateArticleB
  *      content: // value for 'content'
  *      title: // value for 'title'
  *      id: // value for 'id'
+ *      postId: // value for 'postId'
  *   },
  * });
  */

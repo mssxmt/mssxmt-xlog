@@ -15,6 +15,7 @@ query ArticleByPk($id: uuid = "") {
     id
     thumbnail
     title
+    postId
   }
 }
 
@@ -23,6 +24,7 @@ mutation insertArticle(
   $thumbnail: String = ""
   $title: String = ""
   $userId: String = ""
+  $postId: String = ""
 ) {
   insert_Article(
     objects: {
@@ -30,6 +32,7 @@ mutation insertArticle(
       thumbnail: $thumbnail
       title: $title
       userId: $userId
+      postId: $postId
     }
   ) {
     returning {
@@ -42,10 +45,11 @@ mutation updateArticleByPk(
   $content: String = ""
   $title: String = ""
   $id: uuid = ""
+  $postId: String = ""
 ) {
   update_Article_by_pk(
     pk_columns: { id: $id }
-    _set: { content: $content, title: $title }
+    _set: { content: $content, title: $title, postId: $postId }
   ) {
     id
   }
