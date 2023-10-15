@@ -1,16 +1,36 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import EditorJS, { LogLevels, OutputData } from '@editorjs/editorjs';
+import EditorJS, { OutputData } from '@editorjs/editorjs';
 import Header from '@editorjs/header'; //h1〜h4
 import NestedList from '@editorjs/nested-list';
 import Delimiter from '@editorjs/delimiter'; //区切り線
 import CodeTool from '@editorjs/code';
+import ImageTool from '@editorjs/image';
+import { storage } from '../lib/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
+// const uploadImage = async (file: File) => {
+//   let uploadResult = '';
+//   // 参照を作成 → 'images/(画像名)'
+//   const storageRef = ref(storage, `images/${file.name}`);
+//   await uploadBytes(storageRef, file)
+//     .then(async (snapshot) => {
+//       console.log('アップロードに成功しました', snapshot);
+//       await getDownloadURL(storageRef).then(function (url) {
+//         uploadResult = url;
+//       });
+//     })
+//     .catch((error) => {
+//       console.log('アップロードに失敗しました');
+//     });
+//   return uploadResult;
+// };
 type Props = {
   setEditorData: Dispatch<SetStateAction<OutputData | undefined>>;
   editorData?: OutputData | undefined;
+  uploadImage: (file: File, postId?: string) => Promise<string>;
 };
-const Editor = ({ editorData, setEditorData }: Props) => {
+const Editor = ({ editorData, setEditorData, uploadImage }: Props) => {
   //IDを設定、htmlに設定されたidの要素にレンダーされる
   const EDITTOR_HOLDER_ID = 'editorjs';
   const ejInstance = useRef<EditorJS | null>(null);
@@ -39,7 +59,6 @@ const Editor = ({ editorData, setEditorData }: Props) => {
       onChange: async () => {
         if (ejInstance && ejInstance.current) {
           const content = await ejInstance.current.save();
-          console.log(content);
           setEditorData(content);
         }
       },
@@ -99,20 +118,20 @@ const Editor = ({ editorData, setEditorData }: Props) => {
           ],
         },
         delimiter: { class: Delimiter },
-        // image: {
-        //   class: ImageTool,
-        //   config: {
-        //     types: '.jpg, .jpeg, .png',
-        //     captionPlaceholder: '画像のaltを入力',
-        //     //ここにupLoader
-        //     uploader: {
-        //       async uploadByFile(file) {
-        //         const url = await imageResizer(file);
-        //         return { success: 1, file: { url: url } };
-        //       },
-        //     },
-        //   },
-        // },
+        image: {
+          class: ImageTool,
+          config: {
+            types: '.jpg, .jpeg, .png',
+            captionPlaceholder: '画像のaltを入力',
+            //ここにupLoader
+            uploader: {
+              async uploadByFile(file: File) {
+                const url = await uploadImage(file);
+                return { success: 1, file: { url: url } };
+              },
+            },
+          },
+        },
       },
       //////tooltip翻訳messages内に書く！
       i18n: {
