@@ -731,7 +731,7 @@ export type UpdateArticleByPkMutationVariables = Exact<{
 }>;
 
 
-export type UpdateArticleByPkMutation = { update_Article_by_pk?: { content: string, createdAt?: any | null, id: any, postId?: string | null, thumbnail?: string | null, title: string, userId: string } | null };
+export type UpdateArticleByPkMutation = { update_Article_by_pk?: { content: string, createdAt?: any | null, id: any, postId?: string | null, thumbnail?: string | null, title: string } | null };
 
 export type DeleteArticleByPkMutationVariables = Exact<{
   id?: InputMaybe<Scalars['uuid']['input']>;
@@ -873,7 +873,6 @@ export const UpdateArticleByPkDocument = gql`
     postId
     thumbnail
     title
-    userId
   }
 }
     `;
