@@ -65,7 +65,7 @@ export default function ThemeSwitcher() {
       <input
         type='range'
         min={0}
-        max={themes.length}
+        max={themes.length - 1}
         defaultValue={userTheme}
         className='range range-xs'
         step={1}

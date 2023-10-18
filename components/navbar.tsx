@@ -23,7 +23,7 @@ const Navbar = () => {
           MsSxmTXLOG
         </Link>
       </div>
-      <div className='flex-0 mr-10 ml-5 w-100'>
+      <div className='flex-0 mr-3 ml-3 w-100'>
         <ThemeSwitcher />
       </div>
     </div>
