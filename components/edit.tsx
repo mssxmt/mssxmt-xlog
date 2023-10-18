@@ -3,6 +3,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import {
+  ArticleByPkDocument,
   useArticleByPkQuery,
   useInsertArticleMutation,
   useUpdateArticleByPkMutation,
@@ -65,6 +66,16 @@ export default function Edit({ articleId }: Props) {
   const [updateArticleByPk, {}] = useUpdateArticleByPkMutation({
     onError(error) {
       console.log(error);
+    },
+    //キャッシュ更新(あってるのか？)
+    update(cache, { data }) {
+      const newTask = data?.update_Article_by_pk; // ミューテーションのレスポンス
+      if (newTask) {
+        cache.writeQuery({
+          query: ArticleByPkDocument,
+          data: { ...newTask },
+        });
+      }
     },
     onCompleted: () => {
       success();
