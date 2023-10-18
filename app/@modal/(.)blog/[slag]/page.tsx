@@ -19,6 +19,11 @@ const getArticle = async (id: string) => {
       ArticleByPkQueryVariables
     >({
       fetchPolicy: 'cache-first',
+      context: {
+        fetchOptions: {
+          next: { revalidate: 3600 },
+        },
+      },
       query: ArticleByPkDocument,
       variables: { id: id },
     });
