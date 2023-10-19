@@ -79,13 +79,13 @@ export default function Modal({ children }: { children: React.ReactNode }) {
           !isModalOpen
             ? 'animate-slide-out-blurred-top'
             : 'animate-slide-in-blurred-top'
-        } max-h-[90vh] absolute fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/20`}
+        } max-h-screen absolute fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/20`}
         onClick={onClick}
       >
         <div
           style={{ top: '64px' }}
           ref={wrapper}
-          className='max-h-[90vh] absolute left-1/2 -translate-x-1/2 w-full sm:w-100 md:w-100 lg:w-100 p-6'
+          className='max-h-screen absolute left-1/2 -translate-x-1/2 w-full sm:w-100 md:w-100 lg:w-100 p-6'
         >
           <section
             className='bg-base-100 max-w-full p-[32px] flex-col justify-center whitespace-pre-wrap break-all relative rounded-[10px] mb-[100px]'
