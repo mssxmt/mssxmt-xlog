@@ -70,9 +70,8 @@ export default async function Page({ params }: Props) {
       }}
     >
       <section
-        className='bg-opacity-50 bg-base-100 max-w-full p-[32px] flex-col justify-center backdrop-blur-[200px] whitespace-pre-wrap break-all relative rounded-[10px] mb-[100px]'
+        className='bg-base-100 max-w-full p-[32px] flex-col justify-center backdrop-blur-[200px] whitespace-pre-wrap break-all relative rounded-[10px] mb-[100px]'
         style={{
-          WebkitBackdropFilter: 'blur(200px)',
           overflowWrap: 'anywhere',
         }}
       >
