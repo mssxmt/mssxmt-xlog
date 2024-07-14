@@ -2,13 +2,16 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 
-const EditArticleButton = ({ id }: { id: string }) => {
+const EditArticleButton = ({ id }: { id?: string }) => {
   const { user } = useUser();
   if (!user) {
     return null;
   }
   return (
-    <Link className='btn btn-outline btn-primary btn-sm' href={`/create/${id}`}>
+    <Link
+      className='btn btn-outline btn-primary btn-sm'
+      href={id ? `/create/${id}` : '/create'}
+    >
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='24'
