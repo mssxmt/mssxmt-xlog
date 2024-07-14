@@ -1,7 +1,10 @@
-import Link from 'next/link';
-import { bt } from '../styles/fonts';
-
-const Drawer = () => {
+const Drawer = ({
+  htmlFor,
+  children,
+}: {
+  htmlFor: string;
+  children: React.ReactNode;
+}) => {
   return (
     <div className='flex-none'>
       <div className='drawer'>
@@ -30,25 +33,8 @@ const Drawer = () => {
           </label>
         </div>
         <div className='drawer-side '>
-          <label htmlFor='my-drawer' className='drawer-overlay'></label>
-          <ul
-            className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'
-            style={{ letterSpacing: '1em' }}
-          >
-            {/* Sidebar content here */}
-            <li className={`${bt.className}`}>
-              <Link href={'/'}>home</Link>
-            </li>
-            <li className={`${bt.className}`}>
-              <Link href={'/blog'}>logs</Link>
-            </li>
-            <li className={`${bt.className}`}>
-              <Link href={'/discography'}>discography</Link>
-            </li>
-            <li className={`${bt.className}`}>
-              <Link href={'/about'}>about</Link>
-            </li>
-          </ul>
+          <label htmlFor={htmlFor} className='drawer-overlay'></label>
+          {children}
         </div>
       </div>
     </div>
