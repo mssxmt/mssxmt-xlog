@@ -5,6 +5,7 @@ import Drawer from './drawer';
 import ThemeSwitcher from './ThemeSwitcher';
 import { bt } from '../styles/fonts';
 import dynamic from 'next/dynamic';
+import { DrawerInner } from './drawerInner';
 
 const EditArticleButton = dynamic(() => import('./editArticleButton'), {
   ssr: false,
@@ -18,7 +19,9 @@ const Navbar = () => {
         backdropFilter: 'blur(3px)',
       }}
     >
-      <Drawer />
+      <Drawer htmlFor='my-drawer'>
+        <DrawerInner htmlFror='my-drawer' />
+      </Drawer>
       <div
         className={`flex-none mr-0 ml-auto ${bt.className}`}
         style={{ letterSpacing: '0.5em' }}
