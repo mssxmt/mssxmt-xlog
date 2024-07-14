@@ -4,7 +4,11 @@ import Link from 'next/link';
 import Drawer from './drawer';
 import ThemeSwitcher from './ThemeSwitcher';
 import { bt } from '../styles/fonts';
+import dynamic from 'next/dynamic';
 
+const EditArticleButton = dynamic(() => import('./editArticleButton'), {
+  ssr: false,
+});
 const Navbar = () => {
   return (
     <div
@@ -23,6 +27,7 @@ const Navbar = () => {
           MsSxmTXLOG
         </Link>
       </div>
+      <EditArticleButton />
       <div className='flex-0 mr-3 ml-3 w-100'>
         <ThemeSwitcher />
       </div>
