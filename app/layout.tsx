@@ -61,7 +61,7 @@ export default function RootLayout(props: {
                   style={{
                     minHeight: ' calc(100vh - 32px)',
                     background:
-                      'conic-gradient(from 20deg, rgba(223, 168, 168, 0.5) 18deg, rgba(193, 199, 197, 0.5) 68deg, rgba(108, 199, 221, 0.5) 151deg, rgba(177, 151, 223, 0.5) 263deg, rgba(122, 197, 216, 0.5) 295deg, rgba(223, 168, 168, 0.5) 360deg), url(/images/bg2.png) ',
+                      'conic-gradient(from 20deg, rgba(223, 168, 168, 0.8) 18deg, rgba(193, 199, 197, 0.8) 68deg, rgba(108, 199, 221, 0.8) 151deg, rgba(177, 151, 223, 0.8) 263deg, rgba(122, 197, 216, 0.8) 295deg, rgba(223, 168, 168, 0.8) 360deg), url(/images/bg2.png) ',
                     width: '100%',
                     backgroundRepeat: 'repeat',
                   }}
