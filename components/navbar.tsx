@@ -4,12 +4,8 @@ import Link from 'next/link';
 import Drawer from './drawer';
 import ThemeSwitcher from './ThemeSwitcher';
 import { bt } from '../styles/fonts';
-import dynamic from 'next/dynamic';
 import { DrawerInner } from './drawerInner';
-
-const EditArticleButton = dynamic(() => import('./editArticleButton'), {
-  ssr: false,
-});
+import EditArticleButton from './editArticleButtonClient';
 const Navbar = () => {
   return (
     <div

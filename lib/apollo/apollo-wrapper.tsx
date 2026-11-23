@@ -33,6 +33,7 @@ function makeClient() {
   }));
 
   return new NextSSRApolloClient({
+    devtools: { enabled: process.env.NODE_ENV === 'development' },
     cache: new NextSSRInMemoryCache(),
     link:
       //   typeof window === 'undefined'

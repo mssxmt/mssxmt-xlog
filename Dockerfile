@@ -1,2 +1,2 @@
 FROM node
-RUN yarn global add firebase-tools
+RUN npm install -g firebase-tools

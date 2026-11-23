@@ -8,7 +8,7 @@ import {
   useInsertArticleMutation,
   useUpdateArticleByPkMutation,
 } from '../lib/gql';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import { OutputData } from '@editorjs/editorjs';
 import dynamic from 'next/dynamic';
 const Editor = dynamic(() => import('../components/editor'), { ssr: false });
