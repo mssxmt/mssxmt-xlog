@@ -5,7 +5,6 @@ import Drawer from './drawer';
 import ThemeSwitcher from './ThemeSwitcher';
 import { bt } from '../styles/fonts';
 import { DrawerInner } from './drawerInner';
-import EditArticleButton from './editArticleButtonClient';
 const Navbar = () => {
   return (
     <div
@@ -26,7 +25,6 @@ const Navbar = () => {
           MsSxmTXLOG
         </Link>
       </div>
-      <EditArticleButton />
       <div className='flex-0 mr-3 ml-3 w-100'>
         <ThemeSwitcher />
       </div>

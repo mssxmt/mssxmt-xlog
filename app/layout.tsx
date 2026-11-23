@@ -1,11 +1,7 @@
 import { Metadata } from 'next';
 import '../styles/globals.css';
-import { UserProvider } from '@auth0/nextjs-auth0/client';
 import Navbar from '../components/navbar';
 import { NextThemeProvider } from '../providers/NextThemeProvider';
-import { ApolloWrapper } from '../lib/apollo/apollo-wrapper';
-import ReactToalsyProvider from '../providers/ReactToalsyProvider';
-import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../components/footer';
 
 const siteName = 'MSSXMTXLOG';
@@ -51,10 +47,7 @@ export default function RootLayout(props: {
   return (
     <html lang='ja' suppressHydrationWarning>
       <body>
-        <UserProvider>
-          <ApolloWrapper>
-            <NextThemeProvider>
-              <ReactToalsyProvider>
+        <NextThemeProvider>
                 <Navbar />
                 <main
                   // className='min-h-screen'
@@ -70,10 +63,7 @@ export default function RootLayout(props: {
                   {props.modal}
                 </main>
                 <Footer />
-              </ReactToalsyProvider>
-            </NextThemeProvider>
-          </ApolloWrapper>
-        </UserProvider>
+        </NextThemeProvider>
       </body>
     </html>
   );

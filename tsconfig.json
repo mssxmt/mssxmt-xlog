@@ -24,13 +24,11 @@
     },
     "strictNullChecks": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "admin"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "app/api/auth/[auth0]",
-    "app/api/auth/token/route.ts"
+    ".next/types/**/*.ts"
   ]
 }
