@@ -8,7 +8,7 @@ import {
   ArticleByPkQueryVariables,
 } from '../../../../lib/gql';
 
-type Props = { params: { slag: string } };
+type Props = { params: Promise<{ slag: string }> };
 
 const getArticle = async (id: string) => {
   const apiClient = initializeApolloClient(); //apolloClient初期化
@@ -42,7 +42,8 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const article = await getArticle(params.slag);
+  const { slag } = await params;
+  const article = await getArticle(slag);
   //親のogp
   const previousImages = (await parent).openGraph?.images || [];
   return {
@@ -56,7 +57,8 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: Props) {
-  const article = await getArticle(params.slag);
+  const { slag } = await params;
+  const article = await getArticle(slag);
 
   const data =
     article.props.Article_by_pk &&

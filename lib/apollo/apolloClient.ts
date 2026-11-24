@@ -32,6 +32,7 @@ const httpLink = createHttpLink({
 
 const createApolloClient = () => {
   return new ApolloClient({
+    devtools: { enabled: process.env.NODE_ENV === 'development' },
     ssrMode: typeof window === 'undefined',
     link: ApolloLink.from([authLink, httpLink]),
     cache,
