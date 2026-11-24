@@ -40,6 +40,7 @@
     "remark-html": "^15.0.1",
     "styled-components": "^6.0.8",
     "three": "^0.187.0",
+    "tone": "^15.1.22",
     "typescript": "^5.9.3",
     "zenn-content-css": "0.1.106",
     "zenn-embed-elements": "0.1.106",

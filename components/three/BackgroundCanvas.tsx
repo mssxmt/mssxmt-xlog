@@ -47,12 +47,40 @@ export default function BackgroundCanvas() {
       motion.pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
     };
     window.addEventListener('pointermove', onPointer, { passive: true });
-    return () => window.removeEventListener('pointermove', onPointer);
+    // click / tap: shockwave in the point cloud; long-press (mouse): attract
+    let downTimer: ReturnType<typeof setTimeout> | null = null;
+    const onDown = (e: PointerEvent) => {
+      motion.burstNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+      motion.burstNDC.y = -((e.clientY / window.innerHeight) * 2 - 1);
+      motion.burstSeq++;
+      if (e.pointerType === 'mouse') {
+        downTimer = setTimeout(() => {
+          motion.attract = true;
+        }, 280);
+      }
+    };
+    const onUp = () => {
+      if (downTimer) clearTimeout(downTimer);
+      downTimer = null;
+      motion.attract = false;
+    };
+    window.addEventListener('pointerdown', onDown, { passive: true });
+    window.addEventListener('pointerup', onUp, { passive: true });
+    window.addEventListener('pointercancel', onUp, { passive: true });
+    return () => {
+      window.removeEventListener('pointermove', onPointer);
+      window.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
   }, []);
 
-  // glitch burst on navigation
+  // burst on navigation: the cloud blows out and re-forms at the new layout
   useEffect(() => {
     motion.scrollVel = Math.max(motion.scrollVel, 30);
+    motion.burstNDC.x = 0;
+    motion.burstNDC.y = 0.25;
+    motion.burstSeq++;
   }, [pathname]);
 
   return (

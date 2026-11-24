@@ -4,6 +4,7 @@ import { getArticles } from '../lib/articles';
 import { releases } from '../lib/releases';
 import TrackRow from '../components/track-row';
 import Jacket from '../components/jacket';
+import Scramble from '../components/fx/Scramble';
 import Reveal from '../components/fx/Reveal';
 
 const TITLE = 'MASASHI XIMOTO';
@@ -77,7 +78,7 @@ export default async function Page() {
       <section className='px-5 py-24 md:px-10 md:py-32'>
         <Reveal>
           <div className='mb-6 flex items-end justify-between' data-reveal>
-            <h2 className={`${bt.className} text-4xl md:text-6xl`}>INDEX</h2>
+            <h2 className={`${bt.className} text-4xl md:text-6xl`}><Scramble text='INDEX' /></h2>
             <p className='font-mono text-[11px] tracking-[0.22em] text-[#8a877e]'>
               LOG — {articles.length} ENTRIES
             </p>

@@ -1,4 +1,5 @@
 import { SocialLinks } from './socialLinks';
+import SoundToggle from './fx/AudioEngine';
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
@@ -9,7 +10,10 @@ export default function SiteFooter() {
           <p>CAT.NO — MSSXMT-XLOG / WEB</p>
           <p>© {year} MASASHI XIMOTO</p>
         </div>
-        <SocialLinks />
+        <div className='flex items-center gap-8'>
+          <SoundToggle />
+          <SocialLinks />
+        </div>
       </div>
     </footer>
   );
