@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import '../styles/globals.css';
 import BackgroundCanvas from '../components/three/BackgroundCanvas';
+import SmoothScroll from '../components/fx/SmoothScroll';
+import Preloader from '../components/fx/Preloader';
 import SiteNav from '../components/site-nav';
 import SiteFooter from '../components/site-footer';
 import { notojp } from '../styles/fonts';
@@ -48,8 +50,9 @@ export default function RootLayout(props: {
   return (
     <html lang='ja' suppressHydrationWarning>
       <body className={notojp.className}>
+        <SmoothScroll />
         <BackgroundCanvas />
-        <div className='grain' aria-hidden />
+        <Preloader />
         <SiteNav />
         <main className='relative z-10' style={{ minHeight: '100vh' }}>
           {props.children}

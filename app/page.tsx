@@ -3,6 +3,7 @@ import { bt } from '../styles/fonts';
 import { getArticles } from '../lib/articles';
 import { releases } from '../lib/releases';
 import TrackRow from '../components/track-row';
+import Jacket from '../components/jacket';
 import Reveal from '../components/fx/Reveal';
 
 const TITLE = 'MASASHI XIMOTO';
@@ -47,9 +48,8 @@ export default async function Page() {
         <Reveal>
           <div className='relative grid items-end gap-10 md:grid-cols-12'>
             <div className='md:col-span-5' data-reveal>
-              <a href={latest.url} target='_blank' rel='noopener noreferrer' className='tilt block'>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/${latest.image}`} alt={latest.title} className='w-full shadow-[0_30px_80px_rgba(0,0,0,0.6)]' />
+              <a href={latest.url} target='_blank' rel='noopener noreferrer' className='block'>
+                <Jacket id='latest' src={`/${latest.image}`} alt={latest.title} className='aspect-square w-full' />
               </a>
             </div>
             <div className='md:col-span-7' data-reveal>

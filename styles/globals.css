@@ -26,28 +26,6 @@ body {
   color: #0b0b0c;
 }
 
-/* film grain overlay */
-.grain {
-  position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 60;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain-shift 0.9s steps(4) infinite;
-}
-@keyframes grain-shift {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-2%, 1.4%); }
-  50% { transform: translate(1.6%, -1%); }
-  75% { transform: translate(-1%, -1.8%); }
-  100% { transform: translate(0, 0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .grain { animation: none; }
-}
 
 /* huge outlined backdrop words */
 .text-outline {
@@ -60,13 +38,12 @@ footer .fill-primary {
   fill: var(--ink);
 }
 
-/* release jacket tilt */
-.tilt {
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  transform-style: preserve-3d;
+/* WebGL-synced jackets: DOM img holds layout until the scene takes over */
+[data-gl-jacket] img {
+  transition: opacity 0.45s ease;
 }
-.tilt:hover {
-  transform: perspective(900px) rotateY(-7deg) rotateX(3deg) translateY(-4px);
+html.gl-active [data-gl-jacket] img {
+  opacity: 0;
 }
 
 /* tracklist row sweep */

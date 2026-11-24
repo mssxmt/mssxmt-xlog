@@ -9,6 +9,9 @@ const Scene = dynamic(() => import('./Scene'), { ssr: false });
 
 class CanvasBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
+  componentDidCatch() {
+    document.documentElement.dataset.glFailed = '1';
+  }
   static getDerivedStateFromError() {
     return { failed: true };
   }
@@ -39,25 +42,12 @@ export default function BackgroundCanvas() {
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReduced(mq.matches);
-    let lastY = window.scrollY;
-    let raf = 0;
     const onPointer = (e: PointerEvent) => {
       motion.pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
       motion.pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
     };
-    const onScroll = () => {
-      const y = window.scrollY;
-      motion.scrollVel = Math.min(Math.abs(y - lastY), 60);
-      motion.scrollY = y;
-      lastY = y;
-    };
     window.addEventListener('pointermove', onPointer, { passive: true });
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('pointermove', onPointer);
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(raf);
-    };
+    return () => window.removeEventListener('pointermove', onPointer);
   }, []);
 
   // glitch burst on navigation
