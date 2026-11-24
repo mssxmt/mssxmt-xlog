@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import { initializeApolloClient } from '../../lib/apollo/apolloClient';
 import { ArticlesDocument, ArticlesQuery } from '../../lib/gql';
-import DeleteArticleButton from '../../components/deleteArticleButton';
 import { ArticleListDescription } from '../../components/articleListDescription';
 import { ArticlesQueryVariables } from '../../lib/gql';
-import EditArticleButton from '../../components/editArticleButton';
 
 const getArticles = async () => {
   const apiClient = initializeApolloClient(); //apolloClient初期化
@@ -39,8 +37,6 @@ export default async function Page() {
 
   return (
     <div style={{ paddingTop: '64px' }}>
-      {/* <a href='/api/auth/login'>Login</a>;
-      <a href='/api/auth/logout'>ログアウト</a> */}
       {Article.props.Article.map((i, index) => {
         const date = new Date(i.createdAt).toLocaleDateString();
         return (
@@ -89,12 +85,6 @@ export default async function Page() {
                   {'>read more'}
                 </Link>
               </pre>
-              <div style={{ position: 'absolute', top: '25%', right: '5%' }}>
-                <DeleteArticleButton id={i.id} />
-                <span className='ml-2'>
-                  <EditArticleButton id={i.id} />
-                </span>
-              </div>
             </div>
           </article>
         );
