@@ -15,6 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: 'https://mssxmt-xlog.vercel.app/releases',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: 'https://mssxmt-xlog.vercel.app/blog',
       lastModified: new Date(),
       changeFrequency: 'weekly',

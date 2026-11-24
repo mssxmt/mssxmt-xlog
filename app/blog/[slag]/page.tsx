@@ -1,41 +1,13 @@
 import { OutputData } from '@editorjs/editorjs';
-import { initializeApolloClient } from '../../../lib/apollo/apolloClient';
-import {
-  ArticleByPkDocument,
-  ArticleByPkQuery,
-  ArticleByPkQueryVariables,
-} from '../../../lib/gql';
+import { getArticle as fetchArticle } from '../../../lib/articles';
 import { Article } from '../../../components/article';
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = { params: Promise<{ slag: string }> };
 
 const getArticle = async (id: string) => {
-  const apiClient = initializeApolloClient(); //apolloClient初期化
-
-  const fetchData = async () => {
-    const { data: getArticle, error } = await apiClient.query<
-      ArticleByPkQuery,
-      ArticleByPkQueryVariables
-    >({
-      fetchPolicy: 'cache-first',
-      context: {
-        fetchOptions: {
-          next: { revalidate: 3600 },
-        },
-      },
-      query: ArticleByPkDocument,
-      variables: { id: id },
-    });
-
-    return getArticle;
-  };
-  const data = await fetchData();
-
-  const selectedData = { ...data };
-  return {
-    props: selectedData,
-  };
+  const data = await fetchArticle(id);
+  return { props: data };
 };
 
 //メタデータジェネレート
@@ -63,22 +35,22 @@ export default async function Page({ params }: Props) {
   const data: OutputData =
     article.props.Article_by_pk &&
     JSON.parse(article.props.Article_by_pk?.content);
+  const created = article.props.Article_by_pk?.createdAt
+    ? new Date(article.props.Article_by_pk.createdAt)
+    : null;
+  const dateStr = created
+    ? `${created.getFullYear()}.${String(created.getMonth() + 1).padStart(2, '0')}.${String(
+        created.getDate()
+      ).padStart(2, '0')}`
+    : '';
   return (
-    <div
-      style={{
-        paddingTop: 'calc(64px + 20px)',
-        paddingBottom: '40px',
-        margin: '0 5%',
-      }}
-    >
-      <section
-        className='bg-base-100 max-w-full p-[32px] flex-col justify-center backdrop-blur-[200px] whitespace-pre-wrap break-all relative rounded-[10px] mb-[100px]'
-        style={{
-          overflowWrap: 'anywhere',
-        }}
-      >
+    <div className='px-5 pb-28 pt-32 md:px-10 md:pt-40'>
+      <div className='mx-auto max-w-3xl border border-[#26262b] bg-[#0e0e10]/92 p-6 backdrop-blur-md md:p-12'>
+        <p className='mb-6 font-mono text-[11px] tracking-[0.22em] text-[#57d7c8]'>
+          LOG — {dateStr}
+        </p>
         <Article article={article.props} data={data} />
-      </section>
+      </div>
     </div>
   );
 }

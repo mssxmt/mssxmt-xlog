@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 import '../styles/globals.css';
-import Navbar from '../components/navbar';
-import { NextThemeProvider } from '../providers/NextThemeProvider';
-import Footer from '../components/footer';
+import BackgroundCanvas from '../components/three/BackgroundCanvas';
+import SiteNav from '../components/site-nav';
+import SiteFooter from '../components/site-footer';
+import { notojp } from '../styles/fonts';
 
 const siteName = 'MSSXMTXLOG';
 const description = 'MaSaShi XiMoTo x Log';
@@ -46,24 +47,15 @@ export default function RootLayout(props: {
 }) {
   return (
     <html lang='ja' suppressHydrationWarning>
-      <body>
-        <NextThemeProvider>
-                <Navbar />
-                <main
-                  // className='min-h-screen'
-                  style={{
-                    minHeight: ' calc(100vh - 32px)',
-                    background:
-                      'conic-gradient(from 20deg, rgba(223, 168, 168, 0.8) 18deg, rgba(193, 199, 197, 0.8) 68deg, rgba(108, 199, 221, 0.8) 151deg, rgba(177, 151, 223, 0.8) 263deg, rgba(122, 197, 216, 0.8) 295deg, rgba(223, 168, 168, 0.8) 360deg), url(/images/bg2.png) ',
-                    width: '100%',
-                    backgroundRepeat: 'repeat',
-                  }}
-                >
-                  {props.children}
-                  {props.modal}
-                </main>
-                <Footer />
-        </NextThemeProvider>
+      <body className={notojp.className}>
+        <BackgroundCanvas />
+        <div className='grain' aria-hidden />
+        <SiteNav />
+        <main className='relative z-10' style={{ minHeight: '100vh' }}>
+          {props.children}
+          {props.modal}
+        </main>
+        <SiteFooter />
       </body>
     </html>
   );

@@ -1,94 +1,29 @@
-import Link from 'next/link';
-import { initializeApolloClient } from '../../lib/apollo/apolloClient';
-import { ArticlesDocument, ArticlesQuery } from '../../lib/gql';
-import { ArticleListDescription } from '../../components/articleListDescription';
-import { ArticlesQueryVariables } from '../../lib/gql';
+import { bt } from '../../styles/fonts';
+import { getArticles } from '../../lib/articles';
+import TrackRow from '../../components/track-row';
+import Reveal from '../../components/fx/Reveal';
 
-const getArticles = async () => {
-  const apiClient = initializeApolloClient(); //apolloClient初期化
+export const metadata = { title: 'INDEX' };
 
-  const fetchData = async () => {
-    const { data: getArticles, error } = await apiClient.query<
-      ArticlesQuery,
-      ArticlesQueryVariables
-    >({
-      query: ArticlesDocument,
-      context: {
-        fetchOptions: {
-          next: { revalidate: 3600 },
-        },
-      },
-      fetchPolicy: 'no-cache', //no-cacheにするとssr
-      variables: { createdAt: 'desc' },
-    });
-
-    return getArticles;
-  };
-  const data = await fetchData();
-
-  const selectedData = { ...data };
-  return {
-    props: selectedData,
-  };
-};
-//before:hiddenはbefore:display:none
 export default async function Page() {
-  const Article = await getArticles();
-
+  const articles = await getArticles().catch(() => []);
   return (
-    <div style={{ paddingTop: '64px' }}>
-      {Article.props.Article.map((i, index) => {
-        const date = new Date(i.createdAt).toLocaleDateString();
-        return (
-          <article
-            key={i.id}
-            style={{
-              position: 'relative',
-              paddingTop: index === 0 ? '20px' : '0',
-            }}
-          >
-            <div className='mockup-code bg-opacity-0 pt-0 pb-0 before:hidden'>
-              <pre
-                data-prefix={`${index * 4 + 1}`}
-                style={{
-                  textOverflow: 'ellipsis',
-                  maxWidth: '80%',
-                  overflow: 'hidden',
-                }}
-              >
-                <code>
-                  title:
-                  <span className='text-success'>{i.title}</span>
-                </code>
-              </pre>
-              <pre
-                data-prefix={`${index * 4 + 2}`}
-                style={{
-                  textOverflow: 'ellipsis',
-                  maxWidth: '80%',
-                  overflow: 'hidden',
-                }}
-              >
-                <code>
-                  <ArticleListDescription content={JSON.parse(i.content)} />
-                </code>
-              </pre>
-
-              <pre data-prefix={`${index * 4 + 3}`}>
-                <code>{date}</code>
-              </pre>
-              <pre
-                data-prefix={`${index * 4 + 4}`}
-                className='bg-warning text-warning-content'
-              >
-                <Link href={`/blog/${i.id}`} className={'link link-hover'}>
-                  {'>read more'}
-                </Link>
-              </pre>
-            </div>
-          </article>
-        );
-      })}
+    <div className='px-5 pb-28 pt-32 md:px-10 md:pt-40'>
+      <Reveal>
+        <div className='mb-10 flex flex-wrap items-end justify-between gap-4' data-reveal>
+          <h1 className={`${bt.className} text-6xl md:text-8xl`}>INDEX</h1>
+          <p className='font-mono text-[11px] tracking-[0.22em] text-[#8a877e]'>
+            ALL LOG ENTRIES — {articles.length}
+          </p>
+        </div>
+      </Reveal>
+      <Reveal>
+        <div className='border-t border-[#26262b]'>
+          {articles.map((a, i) => (
+            <TrackRow key={a.id} index={i} id={a.id} title={a.title} createdAt={a.createdAt} />
+          ))}
+        </div>
+      </Reveal>
     </div>
   );
 }
