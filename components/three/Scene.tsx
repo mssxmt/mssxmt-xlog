@@ -73,7 +73,6 @@ const pointsVertex = /* glsl */ `
   uniform vec2 uAttractPos;
   uniform float uMorphA;
   uniform float uMorphB;
-  uniform float uBass;
   varying float vMix;
   varying float vFade;
   void main() {
@@ -106,10 +105,9 @@ const pointsVertex = /* glsl */ `
     vec2 toA = uAttractPos - p.xy;
     float ad = length(toA);
     p.xy += toA * uAttract * 0.5 * smoothstep(3.2, 0.0, ad);
-    p += aRand * uBass * 0.22;
     vMix = clamp(max(vMix, glow * 1.3), 0.0, 1.0);
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
-    gl_PointSize = uSize * (1.0 + uBass * 0.4 + glow * 0.6) * (1.0 / -mv.z);
+    gl_PointSize = uSize * (1.0 + glow * 0.6) * (1.0 / -mv.z);
     vFade = uOpacity * (0.55 + 0.45 * sin(aSeed * 40.0 + uTime * 0.8));
     gl_Position = projectionMatrix * mv;
   }
@@ -210,7 +208,6 @@ function useLogoPoints(count: number) {
           uAttractPos: { value: new THREE.Vector2(99, 99) },
           uMorphA: { value: 0 },
           uMorphB: { value: 0 },
-          uBass: { value: 0 },
           uInk: { value: INK },
           uAccent: { value: ACCENT },
         },
@@ -293,7 +290,7 @@ function LogoAssembly() {
     const scrollDisperse = home ? motion.heroProgress * 1.1 * (1 - morphed) : 0.25;
     disperse.current = THREE.MathUtils.damp(
       disperse.current,
-      Math.min(1.25, Math.max(velDisperse, scrollDisperse * (home ? 1 : 0.4)) + motion.audio.bass * 0.35),
+      Math.max(velDisperse, scrollDisperse * (home ? 1 : 0.4)),
       5,
       delta
     );
@@ -343,7 +340,6 @@ function LogoAssembly() {
       }
       m.uniforms.uMorphA.value = morphA.current;
       m.uniforms.uMorphB.value = morphB.current;
-      m.uniforms.uBass.value = motion.audio.bass;
       m.uniforms.uSize.value = 30 * state.gl.getPixelRatio();
     }
   });
@@ -419,7 +415,9 @@ function JacketRig() {
     }, 60);
     return () => {
       clearTimeout(t);
-      document.documentElement.classList.remove('gl-active');
+      document
+        .querySelectorAll('[data-gl-jacket].gl-synced')
+        .forEach((el) => el.classList.remove('gl-synced'));
     };
   }, [pathname]);
 
@@ -428,9 +426,16 @@ function JacketRig() {
     const map = new Map<string, THREE.Texture>();
     entries.forEach((e) => {
       if (!map.has(e.src)) {
-        const t = loader.load(e.src);
+        const t = loader.load(
+          e.src,
+          () => e.el.classList.add('gl-synced'),
+          undefined,
+          () => e.el.classList.remove('gl-synced')
+        );
         t.colorSpace = THREE.SRGBColorSpace;
         map.set(e.src, t);
+      } else {
+        e.el.classList.add('gl-synced');
       }
     });
     return map;
@@ -438,7 +443,6 @@ function JacketRig() {
 
   useFrame((state, delta) => {
     if (!entries.length) return;
-    document.documentElement.classList.add('gl-active');
     const cam = state.camera as THREE.PerspectiveCamera;
     const dist = cam.position.z;
     const visibleH = 2 * Math.tan(THREE.MathUtils.degToRad(cam.fov / 2)) * dist;
@@ -698,7 +702,7 @@ function FlowField() {
   return <primitive object={effect} />;
 }
 
-/** Audio-reactive chromatic aberration: the offset breathes with bass. */
+/** Chromatic aberration offset breathes with scroll velocity. */
 function PostRig({ caRef }: { caRef: React.RefObject<unknown> }) {
   useFrame(() => {
     const eff = caRef.current as {
@@ -706,7 +710,7 @@ function PostRig({ caRef }: { caRef: React.RefObject<unknown> }) {
       uniforms?: Map<string, { value?: { set?: (x: number, y: number) => void } }>;
     } | null;
     if (!eff) return;
-    const s = 0.00045 + motion.audio.bass * 0.0024 + Math.min(motion.scrollVel * 0.000008, 0.0006);
+    const s = 0.00045 + Math.min(motion.scrollVel * 0.000008, 0.0006);
     if (eff.offset?.set) eff.offset.set(s, s);
     else eff.uniforms?.get('offset')?.value?.set?.(s, s);
   });

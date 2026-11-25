@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { bt } from '../styles/fonts';
-import { releases } from '../lib/releases';
+import { jacketSrc, releases } from '../lib/releases';
 import Jacket from '../components/jacket';
 import Reveal from '../components/fx/Reveal';
 
@@ -71,7 +71,7 @@ export default function Page() {
                   className={`group block shrink-0 ${c.cls}`}
                   style={{ marginTop: c.mt }}
                 >
-                  <Jacket id={`home-${r.id}`} src={`/${r.image}`} alt={r.title} className='aspect-square w-full' />
+                  <Jacket id={`home-${r.id}`} src={jacketSrc(r.image)} alt={r.title} className='aspect-square w-full' />
                   <p className='mt-2 font-mono text-[10px] tracking-[0.16em] text-[#8a877e] group-hover:text-[#e8e6df]'>
                     <span className='text-[#57d7c8]'>{r.id}</span> {r.title.toUpperCase()}
                     {i === 0 && <span className='text-[#57d7c8]'> — NEW</span>}

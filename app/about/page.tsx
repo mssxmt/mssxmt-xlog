@@ -22,10 +22,11 @@ export default function Page() {
 
       <div className='mt-16 grid gap-12 md:grid-cols-12'>
         <Reveal className='md:col-span-5'>
-          {/* the logo artwork is black on transparent: present it like a printed sleeve */}
-          <div className='bg-[#e8e6df] p-8' data-reveal>
+          {/* black artwork on transparency: invert to ink so it sits
+              directly on the page background, no panel behind it */}
+          <div data-reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src='/images/mssxmt-lab.png' alt='MSSXMT × LAB logo' className='w-full' />
+            <img src='/images/mssxmt-lab.png' alt='MSSXMT × LAB logo' className='w-full invert' />
           </div>
         </Reveal>
         <Reveal className='md:col-span-7'>

@@ -1,5 +1,5 @@
 import { bt } from '../../styles/fonts';
-import { releases } from '../../lib/releases';
+import { jacketSrc, releases } from '../../lib/releases';
 import Reveal from '../../components/fx/Reveal';
 import Jacket from '../../components/jacket';
 
@@ -29,7 +29,7 @@ export default function Page() {
               className={`group block ${i % 3 === 1 ? 'lg:translate-y-10' : ''} ${i % 3 === 2 ? 'lg:translate-y-4' : ''}`}
               data-reveal
             >
-              <Jacket id={r.id} src={`/${r.image}`} alt={r.title} className='aspect-square w-full' />
+              <Jacket id={r.id} src={jacketSrc(r.image)} alt={r.title} className='aspect-square w-full' />
               <div className='mt-5 flex items-baseline justify-between gap-3'>
                 <h2 className={`${bt.className} text-2xl leading-none md:text-[28px]`}>{r.title}</h2>
                 <span className='font-mono text-[11px] tracking-[0.2em] text-[#57d7c8]'>{r.id}</span>

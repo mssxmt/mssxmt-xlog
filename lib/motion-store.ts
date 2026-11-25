@@ -1,5 +1,5 @@
 // Shared, mutable motion state. Written by DOM listeners (SmoothScroll /
-// BackgroundCanvas / rows / audio engine), read inside the WebGL render
+// BackgroundCanvas / rows), read inside the WebGL render
 // loop. One clock: the scene's useFrame reads everything from here;
 // nothing here triggers React renders.
 export const motion = {
@@ -14,6 +14,5 @@ export const motion = {
   burstNDC: { x: 0, y: 0.25 }, // last click/tap position (NDC) for the shockwave
   burstSeq: 0, // increments per burst; the scene consumes changes
   attract: false, // long-press: points are pulled toward the pointer
-  audio: { on: false, bass: 0, high: 0 }, // Tone.js analyser levels, smoothed
   hoverRow: null as { key: string; seed: number } | null, // index row hovered
 };

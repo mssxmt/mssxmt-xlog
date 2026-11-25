@@ -42,7 +42,7 @@ footer .fill-primary {
 [data-gl-jacket] img {
   transition: opacity 0.45s ease;
 }
-html.gl-active [data-gl-jacket] img {
+[data-gl-jacket].gl-synced img {
   opacity: 0;
 }
 
