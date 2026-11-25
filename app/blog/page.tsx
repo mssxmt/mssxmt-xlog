@@ -1,29 +1,29 @@
+import Link from 'next/link';
 import { bt } from '../../styles/fonts';
-import { getArticles } from '../../lib/articles';
-import TrackRow from '../../components/track-row';
-import Reveal from '../../components/fx/Reveal';
 
-export const metadata = { title: 'INDEX' };
+export const metadata = { title: 'INDEX — CLOSED' };
 
-export default async function Page() {
-  const articles = await getArticles().catch(() => []);
+// INDEX is temporarily closed (owner decision, 2026-11-25): the article
+// modal was clipped and unreadable. Reopen by restoring this page and
+// app/blog/[slag]/page.tsx from git history.
+export default function Page() {
   return (
     <div className='px-5 pb-28 pt-32 md:px-10 md:pt-40'>
-      <Reveal>
-        <div className='mb-10 flex flex-wrap items-end justify-between gap-4' data-reveal>
-          <h1 className={`${bt.className} text-6xl md:text-8xl`}>INDEX</h1>
-          <p className='font-mono text-[11px] tracking-[0.22em] text-[#8a877e]'>
-            ALL LOG ENTRIES — {articles.length}
-          </p>
-        </div>
-      </Reveal>
-      <Reveal>
-        <div className='border-t border-[#26262b]'>
-          {articles.map((a, i) => (
-            <TrackRow key={a.id} index={i} id={a.id} title={a.title} createdAt={a.createdAt} />
-          ))}
-        </div>
-      </Reveal>
+      <p className='font-mono text-[11px] tracking-[0.22em] text-[#57d7c8]'>LOG</p>
+      <h1 className={`${bt.className} mt-4 text-6xl md:text-8xl`}>INDEX</h1>
+      <p className='mt-8 font-mono text-[12px] leading-loose tracking-[0.14em] text-[#8a877e]'>
+        一時閉鎖中 — CLOSED FOR NOW.
+        <br />
+        記事は <span className='text-[#e8e6df]'>PROJECTS (LAB)</span> 側に移行予定。
+      </p>
+      <div className='mt-12 flex gap-8 font-mono text-[12px] tracking-[0.18em]'>
+        <a href='https://lab.mssxmt.com/' target='_blank' rel='noopener noreferrer' className='underline underline-offset-8 hover:text-[#57d7c8]'>
+          PROJECTS →
+        </a>
+        <Link href='/' className='underline underline-offset-8 hover:text-[#57d7c8]'>
+          TOP →
+        </Link>
+      </div>
     </div>
   );
 }

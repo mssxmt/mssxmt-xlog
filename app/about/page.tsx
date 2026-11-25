@@ -25,7 +25,7 @@ export default function Page() {
           {/* the logo artwork is black on transparent: present it like a printed sleeve */}
           <div className='bg-[#e8e6df] p-8' data-reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src='/images/logo2.png' alt='Masashi Ximoto logo' className='w-full' />
+            <img src='/images/mssxmt-lab.png' alt='MSSXMT × LAB logo' className='w-full' />
           </div>
         </Reveal>
         <Reveal className='md:col-span-7'>

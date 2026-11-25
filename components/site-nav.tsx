@@ -7,10 +7,10 @@ import Scramble from './fx/Scramble';
 import Magnetic from './fx/Magnetic';
 
 const LINKS = [
-  { no: '01', href: '/', label: 'TOP' },
-  { no: '02', href: '/blog', label: 'INDEX' },
-  { no: '03', href: '/releases', label: 'RELEASES' },
-  { no: '04', href: '/about', label: 'ABOUT' },
+  { no: '01', href: '/', label: 'TOP', external: false },
+  { no: '02', href: 'https://lab.mssxmt.com/', label: 'PROJECTS', external: true },
+  { no: '03', href: '/releases', label: 'RELEASES', external: false },
+  { no: '04', href: '/about', label: 'ABOUT', external: false },
 ];
 
 export default function SiteNav() {
@@ -25,18 +25,27 @@ export default function SiteNav() {
         </Link>
         <nav className='flex gap-5 md:gap-9'>
           {LINKS.map((l) => {
-            const active = l.href === '/' ? pathname === '/' : pathname?.startsWith(l.href);
+            const active = !l.external && (l.href === '/' ? pathname === '/' : pathname?.startsWith(l.href));
+            const inner = (
+              <>
+                <span className='block text-[9px] text-[#57d7c8]'>{l.no}</span>
+                <span className={active ? 'underline underline-offset-4' : 'group-hover:underline group-hover:underline-offset-4'}>
+                  <Scramble text={l.label} />
+                </span>
+              </>
+            );
+            const cls = 'group block font-mono text-[11px] leading-tight tracking-[0.18em] text-[#e8e6df]';
             return (
               <Magnetic key={l.href} strength={0.3}>
-                <Link
-                  href={l.href}
-                  className='group block font-mono text-[11px] leading-tight tracking-[0.18em] text-[#e8e6df]'
-                >
-                  <span className='block text-[9px] text-[#57d7c8]'>{l.no}</span>
-                  <span className={active ? 'underline underline-offset-4' : 'group-hover:underline group-hover:underline-offset-4'}>
-                    <Scramble text={l.label} />
-                  </span>
-                </Link>
+                {l.external ? (
+                  <a href={l.href} target='_blank' rel='noopener noreferrer' className={cls}>
+                    {inner}
+                  </a>
+                ) : (
+                  <Link href={l.href} className={cls}>
+                    {inner}
+                  </Link>
+                )}
               </Magnetic>
             );
           })}

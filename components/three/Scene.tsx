@@ -260,13 +260,13 @@ function LogoAssembly() {
     // chapter morph (home only): logo -> ring -> band by page progress
     morphA.current = THREE.MathUtils.damp(
       morphA.current,
-      home ? bell(motion.pageProgress, 0.08, 0.22, 0.34, 0.46) : 0,
+      home ? bell(motion.pageProgress, 0.10, 0.26, 0.48, 0.62) : 0,
       3.5,
       delta
     );
     morphB.current = THREE.MathUtils.damp(
       morphB.current,
-      home ? bell(motion.pageProgress, 0.48, 0.62, 0.78, 0.92) : 0,
+      home ? bell(motion.pageProgress, 0.66, 0.80, 0.94, 1.05) : 0,
       3.5,
       delta
     );
