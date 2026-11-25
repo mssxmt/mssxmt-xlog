@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --ink: #e8e6df;
+  --bg: #0b0b0c;
+  --accent: #57d7c8;
+  --mute: #8a877e;
+  --line: #26262b;
+}
+
+html {
+  background: var(--bg);
+  scrollbar-color: #33333a var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: #0b0b0c;
+}
+
+
+/* huge outlined backdrop words */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px #2c2c32;
+}
+
+/* social icons inside the new footer */
+footer .fill-primary {
+  fill: var(--ink);
+}
+
+/* WebGL-synced jackets: DOM img holds layout until the scene takes over */
+[data-gl-jacket] img {
+  transition: opacity 0.45s ease;
+}
+[data-gl-jacket].gl-synced img {
+  opacity: 0;
+}
+
+/* tracklist row sweep */
+.track-row {
+  position: relative;
+  isolation: isolate;
+}
+.track-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.28s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.track-row:hover::before {
+  transform: scaleY(1);
+}
+.track-row:hover {
+  color: #0b0b0c;
+}
+.track-row:hover .track-mute {
+  color: #134e47;
+}
