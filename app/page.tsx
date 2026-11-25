@@ -74,7 +74,7 @@ export default function Page() {
                   <Jacket id={`home-${r.id}`} src={jacketSrc(r.image)} alt={r.title} className='aspect-square w-full' />
                   <p className='mt-2 font-mono text-[10px] tracking-[0.16em] text-[#8a877e] group-hover:text-[#e8e6df]'>
                     <span className='text-[#57d7c8]'>{r.id}</span> {r.title.toUpperCase()}
-                    {i === 0 && <span className='text-[#57d7c8]'> — NEW</span>}
+                    
                   </p>
                 </a>
               );
