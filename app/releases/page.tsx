@@ -31,7 +31,7 @@ export default function Page() {
             >
               <Jacket id={r.id} src={jacketSrc(r.image)} alt={r.title} className='aspect-square w-full' />
               <div className='mt-5 flex items-baseline justify-between gap-3'>
-                <h2 className={`${bt.className} text-2xl leading-none md:text-[28px]`}>{r.title}</h2>
+                <h2 className='text-2xl font-medium leading-tight md:text-[28px]'>{r.title}</h2>
                 <span className='font-mono text-[11px] tracking-[0.2em] text-[#57d7c8]'>{r.id}</span>
               </div>
               <p className='mt-2 font-mono text-[11px] tracking-[0.16em] text-[#8a877e]'>
